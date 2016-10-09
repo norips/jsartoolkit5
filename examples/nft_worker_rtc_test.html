@@ -103,12 +103,12 @@ function success(stream) {
 	canvas.height = 240;
 	var ctx = canvas.getContext('2d');
 
-	worker.call(null, 'new', [320, 240, '/examples/Data/camera_para.dat']);
+	worker.call(null, 'new', [320, 240, '/jsartoolkit5/examples/Data/camera_para.dat']);
 	worker.addEventListener('load', function(ev) {
 		var id = ev.target;
 		console.log('ARController loaded', ev);
 
-		worker.call(id, 'loadNFTMarker', ['/examples/DataNFT/pinball'], function(ev) {
+		worker.call(id, 'loadNFTMarker', ['/jsartoolkit5/examples/DataNFT/pinball'], function(ev) {
 			console.log('Created NFT marker', ev);
 
 			worker.addEventListener('getNFTMarker', function(ev) {

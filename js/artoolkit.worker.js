@@ -2,7 +2,7 @@
 	ARToolKit Web Worker proxy.
 */
 
-importScripts("../build/artoolkit.min.js");
+importScripts("../build/artoolkit.min.js", "artoolkit.api.js");
 
 WorkerARControllers = {};
 WorkerARControllerID = 0;
@@ -41,7 +41,9 @@ onmessage = function(ev) {
 		var arController = WorkerARControllers[ev.data.id];
 		if (callbackMethods[ev.data.method]) {
 			ev.data.arguments.push(function() {
-				postMessage({method: ev.data.method, result: arguments, id: ev.data.id, callID: ev.data.callID});
+				//var message = {method: ev.data.method, result: arguments, id: ev.data.id, callID: ev.data.callID, buff: new Uint8Array()};
+				var message = {method: ev.data.method, result: new Uint8Array(arguments), id: ev.data.id, callID: ev.data.callID};
+				postMessage(message,[message.result.buffer]);
 			});
 			arController[ev.data.method].apply(arController, ev.data.arguments);
 		} else {
